@@ -1,22 +1,7 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
+const { resolvers } = require('./graphql/resolvers');
 
-const typeDefs = gql`
-  type hello {
-    greeting: [String!]!
-  }
-
-  type Query {
-    hello: hello
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => {
-      return { greeting: [] };
-    },
-  },
-};
+const { typeDefs } = require('./graphql/schema');
 
 const server = new ApolloServer({
   typeDefs,

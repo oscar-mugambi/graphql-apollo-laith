@@ -1,11 +1,17 @@
 const { ApolloServer } = require('apollo-server');
-const { resolvers } = require('./graphql/resolvers');
+const { Query } = require('./graphql/resolvers/Query');
+const { Product } = require('./graphql/resolvers/Product');
+const { Category } = require('./graphql/resolvers/Category');
 
 const { typeDefs } = require('./graphql/schema');
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: {
+    Query,
+    Product,
+    Category,
+  },
 });
 
 server.listen().then(({ url }) => {

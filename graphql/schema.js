@@ -10,18 +10,31 @@ exports.typeDefs = gql`
     price: Float!
     onSale: Boolean!
     category: Category
+    reviews: [Review!]!
   }
 
   type Category {
     id: ID!
     name: String!
-    products: [Product!]!
+    products(filter: ProductsFilterInput): [Product!]!
+  }
+
+  type Review {
+    id: ID!
+    date: String!
+    title: String!
+    comment: String!
+    rating: Int!
   }
 
   type Query {
-    products: [Product!]
+    products(filter: ProductsFilterInput): [Product!]
     product(productId: ID!): Product
     category(id: ID!): Category!
     categories: [Category!]!
+  }
+
+  input ProductsFilterInput {
+    onSale: Boolean
   }
 `;

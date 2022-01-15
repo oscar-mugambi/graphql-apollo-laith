@@ -1,17 +1,23 @@
-const { products, categories } = require('../../datastore');
-
 exports.Query = {
-  products: () => {
-    return products;
+  products: (parent, { filter }, { products }) => {
+    let filteredProducts = products;
+    if (filter.onSale === true) {
+      if (filter.onSale) {
+        console.log('filtering');
+        return filteredProducts.filter((product) => product.onSale);
+      }
+    }
+
+    return filteredProducts;
   },
-  product: (parent, args, context) => {
+  product: (parent, args, { products }) => {
     const id = args.productId;
     return products.find((product) => product.id === id);
   },
-  categories: () => {
+  categories: (parent, args, { categories }) => {
     return categories;
   },
-  category: (parent, args, ctx) => {
+  category: (parent, args, { categories }) => {
     console.log(parent);
     return categories.find((category) => category.id === args.id);
   },
